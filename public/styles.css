@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusFlow | Student Course Management System</title>
+    <meta name="description" content="CampusFlow Student Course Management System" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-box">
+          <div class="brand-mark">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <div>
+            <div class="brand-name">CampusFlow</div>
+            <div class="brand-subtitle">Student Course System</div>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <button class="nav-item active" data-section="dashboard">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-section="students">
+            <i class="bi bi-people-fill"></i>
+            <span>Students</span>
+          </button>
+          <button class="nav-item" data-section="courses">
+            <i class="bi bi-journals"></i>
+            <span>Courses</span>
+          </button>
+          <button class="nav-item" data-section="registration">
+            <i class="bi bi-pencil-square"></i>
+            <span>Course Registration</span>
+          </button>
+          <button class="nav-item" data-section="registrations">
+            <i class="bi bi-card-list"></i>
+            <span>Registrations</span>
+          </button>
+          <button class="nav-item" data-section="settings">
+            <i class="bi bi-gear-fill"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="mini-card">
+            <span class="mini-label">Academic Term</span>
+            <strong>2025/2026</strong>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">Overview</div>
+            <h1 id="pageTitle">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="btn btn-light btn-icon" type="button" aria-label="Search">
+              <i class="bi bi-search"></i>
+            </button>
+            <div class="user-pill">
+              <div class="avatar">AO</div>
+              <div>
+                <strong>Admin</strong>
+                <span>System Manager</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section id="dashboardSection" class="page-section active">
+          <div class="metrics-grid">
+            <article class="metric-card accent-blue">
+              <div class="metric-header">
+                <span>Total Students</span>
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <h2 id="totalStudents">0</h2>
+              <small>Updated today</small>
+            </article>
+            <article class="metric-card accent-green">
+              <div class="metric-header">
+                <span>Total Courses</span>
+                <i class="bi bi-journal-bookmark-fill"></i>
+              </div>
+              <h2 id="totalCourses">0</h2>
+              <small>Across faculties</small>
+            </article>
+            <article class="metric-card accent-violet">
+              <div class="metric-header">
+                <span>Total Registrations</span>
+                <i class="bi bi-card-checklist"></i>
+              </div>
+              <h2 id="totalRegistrations">0</h2>
+              <small>Current session</small>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="panel-card wide-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Performance</p>
+                  <h3>Recent Registrations</h3>
+                </div>
+                <button class="btn btn-sm btn-outline-primary" type="button">View All</button>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table modern-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Course</th>
+                      <th>Semester</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentRegistrationsTable"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel-card compact-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Summary</p>
+                  <h3>System Health</h3>
+                </div>
+              </div>
+              <div class="summary-stack">
+                <div class="summary-row">
+                  <span>Active Students</span>
+                  <strong id="activeStudentsSummary">0</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Departments</span>
+                  <strong>5</strong>
+                </div>
+                <div class="summary-row">
+                  <span>Pending Updates</span>
+                  <strong>2</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="studentsSection" class="page-section">
+          <div class="page-toolbar">
+            <div>
+              <p class="section-label">Student Records</p>
+              <h2>Students</h2>
+            </div>
+            <button id="addStudentBtn" class="btn btn-primary" type="button">
+              <i class="bi bi-plus-lg"></i>
+              Add Student
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="toolbar-row">
+              <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input id="studentSearch" type="search" placeholder="Search students..." />
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table modern-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Matric Number</th>
+                    <th>Department</th>
+                    <th>Level</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="coursesSection" class="page-section">
+          <div class="page-toolbar">
+            <div>
+              <p class="section-label">Course Catalog</p>
+              <h2>Courses</h2>
+            </div>
+            <button id="addCourseBtn" class="btn btn-primary" type="button">
+              <i class="bi bi-plus-lg"></i>
+              Add Course
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="toolbar-row">
+              <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input id="courseSearch" type="search" placeholder="Search courses..." />
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table modern-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Course Title</th>
+                    <th>Department</th>
+                    <th>Units</th>
+                    <th>Semester</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="coursesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="registrationSection" class="page-section">
+          <div class="page-toolbar">
+            <div>
+              <p class="section-label">Enrollment</p>
+              <h2>Course Registration</h2>
+            </div>
+          </div>
+
+          <div class="registration-layout">
+            <div class="panel-card">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-kicker">Student Enrollment</p>
+                  <h3>Register a Student</h3>
+                </div>
+              </div>
+
+              <form id="registrationForm">
+                <div class="mb-3">
+                  <label for="studentSelect" class="form-label">Select Student</label>
+                  <select id="studentSelect" class="form-select" required>
+                    <option value="">Choose a student</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="semesterSelect" class="form-label">Select Semester</label>
+                  <select id="semesterSelect" class="form-select" required>
+                    <option value="">Choose a semester</option>
+                    <option value="First Semester">First Semester</option>
+                    <option value="Second Semester">Second Semester</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Available Courses</label>
+                  <div id="courseSelectionList" class="course-checklist"></div>
+                </div>
+
+                <button class="btn btn-primary w-100" type="submit">
+                  <i class="bi bi-check2-circle"></i>
+                  Register Courses
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="registrationsSection" class="page-section">
+          <div class="page-toolbar">
+            <div>
+              <p class="section-label">Enrollment Records</p>
+              <h2>Registrations</h2>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-responsive">
+              <table class="table modern-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Semester</th>
+                    <th>Status</th>
+                    <th class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="registrationsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="settingsSection" class="page-section">
+          <div class="page-toolbar">
+            <div>
+              <p class="section-label">System Controls</p>
+              <h2>Settings</h2>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="panel-card">
+              <div class="settings-header">
+                <h3>Academic Settings</h3>
+              </div>
+              <div class="settings-list">
+                <div class="settings-item">
+                  <span>Academic session</span>
+                  <strong>2025/2026</strong>
+                </div>
+                <div class="settings-item">
+                  <span>Exam period</span>
+                  <strong>Semester 1</strong>
+                </div>
+                <div class="settings-item">
+                  <span>Registration window</span>
+                  <strong>Open</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="settings-header">
+                <h3>Notifications</h3>
+              </div>
+              <div class="settings-list">
+                <div class="settings-item">
+                  <span>Email reminders</span>
+                  <strong>Enabled</strong>
+                </div>
+                <div class="settings-item">
+                  <span>SMS alerts</span>
+                  <strong>Enabled</strong>
+                </div>
+                <div class="settings-item">
+                  <span>Audit logs</span>
+                  <strong>Tracked</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal fade" id="studentModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="studentModalTitle">Add Student</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="studentForm">
+            <div class="modal-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" name="name" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Matric Number</label>
+                  <input type="text" name="matricNumber" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input type="email" name="email" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input type="tel" name="phone" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Department</label>
+                  <select name="department" class="form-select" required>
+                    <option value="">Select department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Business Administration">Business Administration</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Mass Communication">Mass Communication</option>
+                    <option value="Accounting">Accounting</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Level</label>
+                  <select name="level" class="form-select" required>
+                    <option value="">Select level</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Status</label>
+                  <select name="status" class="form-select">
+                    <option value="Active">Active</option>
+                    <option value="On Leave">On Leave</option>
+                    <option value="Graduated">Graduated</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Address</label>
+                  <input type="text" name="address" class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Student</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="courseModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="courseModalTitle">Add Course</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="courseForm">
+            <div class="modal-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Course Code</label>
+                  <input type="text" name="code" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Course Title</label>
+                  <input type="text" name="title" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Department</label>
+                  <select name="department" class="form-select" required>
+                    <option value="">Select department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Business Administration">Business Administration</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Mass Communication">Mass Communication</option>
+                    <option value="Accounting">Accounting</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Units</label>
+                  <input type="number" name="units" class="form-control" min="1" max="6" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Semester</label>
+                  <select name="semester" class="form-select" required>
+                    <option value="">Select semester</option>
+                    <option value="First Semester">First Semester</option>
+                    <option value="Second Semester">Second Semester</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Level</label>
+                  <select name="level" class="form-select" required>
+                    <option value="">Select level</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="300">300</option>
+                    <option value="400">400</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Course</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Student Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="detailsModalBody"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

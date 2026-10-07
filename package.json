@@ -9,16 +9,17 @@
     "dev": "nodemon server.js"
   },
   "keywords": [
+    "campusflow",
     "university",
+    "student",
     "course",
-    "management",
-    "student"
+    "management"
   ],
-  "author": "",
+  "author": "CampusFlow",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
